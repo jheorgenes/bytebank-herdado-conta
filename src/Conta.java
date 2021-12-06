@@ -20,20 +20,18 @@ public abstract class Conta {
 	
 	public abstract void deposita(double valor);
 	
-	public boolean saca(double valor) {
-		if(this.saldo >= saldo) {
-			this.saldo -= valor;
-			return true;
+	public void saca(double valor) throws SaldoInsuficienteException {
+		//Fazendo a inversão da lógica para sempre lançar excessão se algo ocorrer antes da execução do método.
+		if(this.saldo < valor) {  //Se o valor a sacar for maior que o saldo
+			throw new SaldoInsuficienteException("Saldo: " + this.saldo + ", Valor: " + valor); //Lança a exception
 		}
-		return false;
+		//Se não tiver problema, saca.
+		this.saldo -= valor;
 	}
 	
-	public boolean transfere(double valor, Conta destino) {
-		if(this.saca(valor)) {
-			destino.deposita(valor);
-			return true;
-		}
-		return false;
+	public void transfere(double valor, Conta destino) throws SaldoInsuficienteException {
+		this.saca(valor);
+		destino.deposita(valor);
 	}
 	
 	public double getSaldo() {
