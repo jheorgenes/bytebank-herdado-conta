@@ -3,7 +3,7 @@ package br.com.bytebank.banco.modelo;
 /**
  * Classe representa a moldura de uma conta
  * */
-public abstract class Conta {
+public abstract class Conta implements Comparable<Conta>{ //Preparando classe para comparar com outra conta
 	
 	protected double saldo;
 	private int agencia;
@@ -90,8 +90,28 @@ public abstract class Conta {
         return Conta.total;
     }
     
+    //Comparar se a
+    @Override
+    public boolean equals(Object ref) { //O método equals obriga a implementar a classe Object para fazer a sobrescrita
+    	
+    	Conta outra = (Conta) ref; //Necessita de Cast
+    	if(this.agencia != outra.agencia)
+    		return false;
+    	if(this.numero != outra.numero)
+    		return false;
+    	return true;
+    }
+    
+    /**
+     * Método sobrescrito da classe Comparable define ordem de comparação natural ou específica
+     **/
+    @Override
+	public int compareTo(Conta outra) {
+		return Double.compare(this.saldo, outra.saldo); //Comparando o saldo dessa conta com outra conta que veio através do parametro
+	}
+    
     @Override
     public String toString() {
-    	return "Numero: " + this.numero + ", Agencia: " + this.agencia;    
+    	return "Numero: " + this.numero + ", Agencia: " + this.agencia + ", Saldo: " + this.saldo;    
     }
 }
