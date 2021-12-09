@@ -1,2 +1,2 @@
 # bytebank-herdado-conta
-Projeto Base para treinamentos  na Alura
+## Projeto Base para treinamentos de JAVA na Alura
